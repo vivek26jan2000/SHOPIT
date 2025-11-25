@@ -1,0 +1,24 @@
+{
+  "name": "shopit",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "E-Commerce",
+  "main": "app.js",
+  "scripts": {
+    "start": "node backend/app.js",
+    "dev": "NODE_ENV=DEVELOPMENT nodemon backend/app.js",
+    "prod":"NODE_ENV=PRODUCTION nodemon backend/app.js",
+    "seeder":"node backend/seeder/seeder.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vivek Sharma",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "mongoose": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
