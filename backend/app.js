@@ -2,9 +2,11 @@ import express from "express";
 import dotenv from "dotenv";
 import { connectDatabase } from "./config/dbConnect.js";
 import errorMiddleware from "./middlewares/error.js";
+import cookieParser from "cookie-parser";
 
 // import all routes here
 import productRoutes from "./routes/products.js";
+import authRoutes from "./routes/auths.js";
 
 const app = express();
 
@@ -23,9 +25,12 @@ connectDatabase();
 
 // parse the body
 app.use(express.json());
+// parse the cookies
+app.use(cookieParser());
 
 // using routes here
 app.use("/api/v1", productRoutes);
+app.use("/api/v1", authRoutes);
 
 // it's for handling errors
 app.use(errorMiddleware);

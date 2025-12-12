@@ -61,7 +61,7 @@ class ApiFilters {
     let queryStr = JSON.stringify(queryCopy);
     queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g, (m) => `$${m}`);
 
-    console.log("queryStr =>", queryStr);
+    // console.log("queryStr =>", queryStr);
 
     // Parse safely
     const parsed = JSON.parse(queryStr);
