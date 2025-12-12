@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 // import all routes here
 import productRoutes from "./routes/products.js";
 import authRoutes from "./routes/auths.js";
+import orderRoutes from "./routes/order.js";
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use(cookieParser());
 // using routes here
 app.use("/api/v1", productRoutes);
 app.use("/api/v1", authRoutes);
+app.use("/api/v1", orderRoutes);
 
 // it's for handling errors
 app.use(errorMiddleware);
