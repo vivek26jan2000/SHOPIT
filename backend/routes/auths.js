@@ -10,6 +10,7 @@ import {
   getUserDetails,
   updateUser,
   deleteUser,
+  uploadAvatar,
 } from "../controllers/authControllers.js";
 
 import { isAuthenticatedUser, authorizeRoles } from "../middlewares/auth.js";
@@ -22,7 +23,9 @@ router.route("/logout").get(logout);
 
 router.route("/me").get(isAuthenticatedUser, getUserProfile);
 router.route("/me/update").put(isAuthenticatedUser, updateProfile);
-router.route("/update/password").post(isAuthenticatedUser, updatePassword);
+router.route("/update/password").put(isAuthenticatedUser, updatePassword);
+
+router.route("/me/upload_avatar").put(isAuthenticatedUser, uploadAvatar);
 
 router
   .route("/admin/users")

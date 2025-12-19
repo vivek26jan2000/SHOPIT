@@ -2,6 +2,7 @@ import catchAsyncErrors from "../middlewares/catchAsyncErrors.js";
 import User from "../models/user.js";
 import ErrorHandler from "../utils/errorHandler.js";
 import sendToken from "../utils/sendToken.js";
+import { upload_file, delete_file } from "../utils/cloudinary.js";
 
 // create a new user ==> api/v1/register
 export const registerUser = catchAsyncErrors(async (req, res, next) => {
@@ -131,6 +132,24 @@ export const updateUser = catchAsyncErrors(async (req, res, next) => {
 
   const user = await User.findByIdAndUpdate(req?.user?._id, newData, {
     new: true,
+  });
+
+  res.status(200).json({
+    user,
+  });
+});
+
+// Upload user avatar   =>  /api/v1/me/upload_avatar
+export const uploadAvatar = catchAsyncErrors(async (req, res, next) => {
+  const avatarResponse = await upload_file(req.body.avatar, "shopit/avatars");
+
+  // Remove previous avatar
+  if (req?.user?.avatar?.url) {
+    await delete_file(req?.user?.avatar?.public_id);
+  }
+
+  const user = await User.findByIdAndUpdate(req?.user?._id, {
+    avatar: avatarResponse,
   });
 
   res.status(200).json({
