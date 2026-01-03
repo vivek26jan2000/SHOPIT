@@ -14,6 +14,7 @@ import Profile from "./components/user/Profile.jsx";
 import UpdateProfile from "./components/user/UpdateProfile.jsx";
 import UploadAvatar from "./components/user/UploadAvatar.jsx";
 import UpdatePassword from "./components/user/UpdatePassword.jsx";
+import Cart from "./components/cart/Cart.jsx";
 
 function App() {
   return (
@@ -62,6 +63,10 @@ function App() {
                 </ProtectedRoute>
               }
             />
+
+            <Route path="/cart" element={<Cart />} />
+
+            <Route path="*" element={<h1>404 Not Found</h1>} />
           </Routes>
         </div>
 
