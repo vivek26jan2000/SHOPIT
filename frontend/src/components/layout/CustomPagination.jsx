@@ -5,8 +5,6 @@ import Pagination from "react-js-pagination";
 const CustomPagination = ({ resPerPage, filteredProductsCount }) => {
   const [currentPage, setCurrentPage] = useState();
 
-  console.log("hello", resPerPage, filteredProductsCount);
-
   let [searchParams] = useSearchParams();
   const navigate = useNavigate();
 

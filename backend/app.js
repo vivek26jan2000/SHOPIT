@@ -1,31 +1,22 @@
 import express from "express";
-import dotenv from "dotenv";
-import { connectDatabase } from "./config/dbConnect.js";
-import errorMiddleware from "./middlewares/error.js";
-import cookieParser from "cookie-parser";
-
-// import all routes here
-import productRoutes from "./routes/products.js";
-import authRoutes from "./routes/auths.js";
-import orderRoutes from "./routes/order.js";
-import paymentRoutes from "./routes/payment.js";
-
 const app = express();
+import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
+import { connectDatabase } from "./config/dbConnect.js";
+import errorMiddleware from "./middlewares/errors.js";
 
-// uncaught Exception handling
+// Handle Uncaught exceptions
 process.on("uncaughtException", (err) => {
-  console.log(`Error: ${err.message}`);
-  console.log("Shutting down the server due to Uncaught Exception");
+  console.log(`ERROR: ${err}`);
+  console.log("Shutting down due to uncaught expection");
   process.exit(1);
 });
 
-// set the env
 dotenv.config({ path: "backend/config/config.env" });
 
-// connect to database
+// Connecting to database
 connectDatabase();
 
-// parse the body
 app.use(
   express.json({
     limit: "10mb",
@@ -34,28 +25,32 @@ app.use(
     },
   })
 );
-// parse the cookies
 app.use(cookieParser());
 
-// using routes here
+// Import all routes
+import productRoutes from "./routes/products.js";
+import authRoutes from "./routes/auth.js";
+import orderRoutes from "./routes/order.js";
+import paymentRoutes from "./routes/payment.js";
+
 app.use("/api/v1", productRoutes);
 app.use("/api/v1", authRoutes);
 app.use("/api/v1", orderRoutes);
 app.use("/api/v1", paymentRoutes);
 
-// it's for handling errors
+// Using error middleware
 app.use(errorMiddleware);
 
 const server = app.listen(process.env.PORT, () => {
   console.log(
-    `Server start at the port:${process.env.PORT} in ${process.env.NODE_ENV} mode.`
+    `Server started on PORT: ${process.env.PORT} in ${process.env.NODE_ENV} mode.`
   );
 });
 
-// handle unhandled promise rejections
+//Handle Unhandled Promise rejections
 process.on("unhandledRejection", (err) => {
-  console.log(`Error: ${err.message}`);
-  console.log("Shutting down the server due to Unhandled Promise Rejection");
+  console.log(`ERROR: ${err}`);
+  console.log("Shutting down server due to Unhandled Promise Rejection");
   server.close(() => {
     process.exit(1);
   });

@@ -12,7 +12,6 @@ const productSchema = new mongoose.Schema(
       required: [true, "Please enter product price"],
       maxLength: [5, "Product price cannot exceed 5 digits"],
     },
-
     description: {
       type: String,
       required: [true, "Please enter product description"],
@@ -21,7 +20,6 @@ const productSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-
     images: [
       {
         public_id: {
@@ -34,34 +32,21 @@ const productSchema = new mongoose.Schema(
         },
       },
     ],
-
     category: {
       type: String,
       required: [true, "Please enter product category"],
       enum: {
         values: [
-          "Laptops",
           "Electronics",
-          "Fashion",
+          "Cameras",
+          "Laptops",
           "Accessories",
           "Headphones",
-          "Books",
-          "Footwear",
-          "Smartphones",
-          "Watches",
-          "Cameras",
-          "Home Kitchen",
-          "Sports Outdoors",
-          "Toys Games",
-          "Automotive",
-          "Health Wellness",
-          "Groceries",
-          "Beauty Personal Care",
-          "Music Movies",
-          "Garden Outdoors",
-          "Pet Supplies",
-          "Baby Products",
           "Food",
+          "Books",
+          "Sports",
+          "Outdoor",
+          "Home",
         ],
         message: "Please select correct category",
       },
@@ -70,17 +55,14 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please enter product seller"],
     },
-
     stock: {
       type: Number,
       required: [true, "Please enter product stock"],
     },
-
     numOfReviews: {
       type: Number,
       default: 0,
     },
-
     reviews: [
       {
         user: {
@@ -98,12 +80,10 @@ const productSchema = new mongoose.Schema(
         },
       },
     ],
-
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
-      // required: false,
     },
   },
   { timestamps: true }
